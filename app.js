@@ -13,7 +13,7 @@ const productRoutes = require('./routes/productRoutes');
 const app = express();
 
 // Cors middleware
-const allowedOrigins = ['http://localhost:8080', 'https://your-production-domain.com'];
+const allowedOrigins = ['http://localhost:8080', 'https://in-perfume.vercel.app/'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
