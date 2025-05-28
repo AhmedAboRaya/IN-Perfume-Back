@@ -13,12 +13,22 @@ const productRoutes = require('./routes/productRoutes');
 const app = express();
 
 // Cors middleware
+const allowedOrigins = ["https://in-perfume.vercel.app", "http://localhost:8080"];
+
 app.use(
   cors({
-    origin: "https://in-perfume.vercel.app", // Exact frontend URL
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // Allow credentials
+    credentials: true,
   })
 );
 
